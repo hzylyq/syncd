@@ -47,6 +47,7 @@ func (t *Task) Run() {
 		}
 	}
 	t.done = true
+	setCommitMsg()
 }
 
 func (t *Task) GetError() error {

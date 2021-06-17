@@ -52,6 +52,7 @@ func newSyncd() *syncd {
 
 func (s *syncd) Init(cfg *Config) error {
 	s.config = cfg
+	s.Feishu = cfg.Feishu
 
 	if err := s.registerOrm(); err != nil {
 		return err

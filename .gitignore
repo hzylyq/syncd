@@ -13,3 +13,6 @@
 
 # dir
 .DS_Store
+
+.vscode
+.gitignore

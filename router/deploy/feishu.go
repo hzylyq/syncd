@@ -180,9 +180,9 @@ func (conf *deployMessageConf) NewMessage() (*FeiShuReq, error) {
 	req.Content.Post.ZhCn.Title = statusMap[conf.msg.Status]
 	req.Content.Post.ZhCn.Content = make([][]content, 0)
 
-	res := make([][]content, 7)
-	for i := 0; i < 7; i++ {
-		if i == 4 || i == 5 {
+	res := make([][]content, 8)
+	for i := 0; i < 8; i++ {
+		if i == 5 {
 			res[i] = make([]content, 2)
 			continue
 		}
@@ -215,21 +215,20 @@ func (conf *deployMessageConf) NewMessage() (*FeiShuReq, error) {
 		Tag:  "text",
 		Text: "运行环境: " + conf.groupName,
 	}
-	res[4][1] = content{
-		Tag:  "a",
-		Text: "部署链接",
-		Href: applyLink(conf.apply.ID),
-	}
 	res[5][0] = content{
 		Tag:  "text",
 		Text: "部署详情: ",
 	}
 	res[5][1] = content{
 		Tag:  "a",
-		Text: "部署链接",
+		Text: "部署详情:",
 		Href: applyLink(conf.apply.ID),
 	}
 	res[6][0] = content{
+		Tag:  "text",
+		Text: "最新提交:" + conf.commitMsg,
+	}
+	res[7][0] = content{
 		Tag:  "text",
 		Text: "发布人: " + conf.userName,
 	}

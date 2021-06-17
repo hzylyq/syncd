@@ -5,52 +5,58 @@
 package syncd
 
 type (
-    Config struct {
-        Serve   *ServeConfig
-        Db      *DbConfig
-        Log     *LogConfig
-        Syncd   *SyncdConfig
-        Mail    *MailConfig
-    }
+	Config struct {
+		Serve  *ServeConfig
+		Db     *DbConfig
+		Log    *LogConfig
+		Syncd  *SyncdConfig
+		Mail   *MailConfig
+		Feishu *FeishuConfig
+	}
 
-    SyncdConfig struct {
-        LocalSpace      string
-        RemoteSpace     string
-        Cipher          string
-        AppHost         string
-    }
+	SyncdConfig struct {
+		LocalSpace  string
+		RemoteSpace string
+		Cipher      string
+		AppHost     string
+	}
 
-    LogConfig struct {
-        Path    string
-    }
+	LogConfig struct {
+		Path string
+	}
 
-    MailConfig struct {
-        Enable  int
-        Smtp    string
-        Port    int
-        User    string
-        Pass    string
-    }
+	MailConfig struct {
+		Enable int
+		Smtp   string
+		Port   int
+		User   string
+		Pass   string
+	}
 
-    ServeConfig struct {
-        Addr            string
-        FeServeEnable   int
-        ReadTimeout     int
-        WriteTimeout    int
-        IdleTimeout     int
-    }
+	ServeConfig struct {
+		Addr          string
+		FeServeEnable int
+		ReadTimeout   int
+		WriteTimeout  int
+		IdleTimeout   int
+	}
 
-    DbConfig struct {
-        Unix            string
-        Host            string
-        Port            int
-        Charset         string
-        User            string
-        Pass            string
-        DbName          string
-        TablePrefix     string
-        MaxIdleConns    int
-        MaxOpenConns    int
-        ConnMaxLifeTime int
-    }
+	DbConfig struct {
+		Unix            string
+		Host            string
+		Port            int
+		Charset         string
+		User            string
+		Pass            string
+		DbName          string
+		TablePrefix     string
+		MaxIdleConns    int
+		MaxOpenConns    int
+		ConnMaxLifeTime int
+	}
+
+	FeishuConfig struct {
+		Url  string
+		Sign string
+	}
 )

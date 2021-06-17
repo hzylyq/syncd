@@ -182,7 +182,7 @@ func (conf *deployMessageConf) NewMessage() (*FeiShuReq, error) {
 
 	res := make([][]content, 7)
 	for i := 0; i < 7; i++ {
-		if i == 5 {
+		if i == 4 || i == 5 {
 			res[i] = make([]content, 2)
 			continue
 		}

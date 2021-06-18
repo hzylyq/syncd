@@ -92,9 +92,11 @@ func CommitMsg() string {
 }
 
 func setCommitMsg() {
-	cmd := exec.Command("/bin/bash", "-c", "git log -1 --pretty=%B")
-	var cmdMsg bytes.Buffer
-	cmd.Stdout = &cmdMsg
-	cmd.Run()
-	commitMsg = cmdMsg.String()
+	if len(commitMsg) == 0 {
+		cmd := exec.Command("/bin/bash", "-c", "git log -1 --pretty=%B")
+		var cmdMsg bytes.Buffer
+		cmd.Stdout = &cmdMsg
+		cmd.Run()
+		commitMsg = cmdMsg.String()
+	}
 }

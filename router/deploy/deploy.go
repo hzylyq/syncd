@@ -7,6 +7,8 @@ package deploy
 import (
 	"fmt"
 
+	"github.com/gin-gonic/gin"
+
 	"github.com/dreamans/syncd"
 	depTask "github.com/dreamans/syncd/deploy"
 	"github.com/dreamans/syncd/module/deploy"
@@ -16,7 +18,6 @@ import (
 	"github.com/dreamans/syncd/render"
 	"github.com/dreamans/syncd/router/common"
 	"github.com/dreamans/syncd/util/gostring"
-	"github.com/gin-gonic/gin"
 )
 
 func DeployRollback(c *gin.Context) {
@@ -58,7 +59,7 @@ func DeployRollback(c *gin.Context) {
 		return
 	}
 
-	//old build order
+	// old build order
 	oldBuild := &deploy.Build{
 		ApplyId: oldApply.ID,
 	}
@@ -67,7 +68,7 @@ func DeployRollback(c *gin.Context) {
 		return
 	}
 
-	//create rollback apply order
+	// create rollback apply order
 	rollbackApply := &deploy.Apply{
 		SpaceId:         oldApply.SpaceId,
 		ProjectId:       oldApply.ProjectId,
@@ -86,7 +87,7 @@ func DeployRollback(c *gin.Context) {
 		return
 	}
 
-	//create rollback build order
+	// create rollback build order
 	rollbackBuild := &deploy.Build{
 		ApplyId:    rollbackApply.ID,
 		StartTime:  oldBuild.StartTime,
@@ -259,7 +260,7 @@ func DeployStart(c *gin.Context) {
 		return
 	}
 
-	//check project have deploying apply
+	// check project have deploying apply
 	if canDeploy, err := apply.CheckHaveDeploying(); !canDeploy || err != nil {
 		if err != nil {
 			render.AppError(c, err.Error())
@@ -269,7 +270,7 @@ func DeployStart(c *gin.Context) {
 		return
 	}
 
-	//apply must audit passed
+	// apply must audit passed
 	if apply.AuditStatus != deploy.AUDIT_STATUS_OK {
 		render.AppError(c, "apply audit_status must passed")
 		return
@@ -320,7 +321,7 @@ func DeployStart(c *gin.Context) {
 		groupSrvs[srv.GroupId] = append(groupSrvs[srv.GroupId], srv)
 	}
 
-	deploys := []*depTask.Deploy{}
+	var deploys []*depTask.Deploy
 	for _, gid := range proj.OnlineCluster {
 		gsrv, exists := groupSrvs[gid]
 		if !exists {
@@ -371,7 +372,7 @@ func DeployStart(c *gin.Context) {
 		if status == depTask.STATUS_FAILED {
 			taskStatus = deploy.DEPLOY_STATUS_FAILED
 		}
-		srvRest := []map[string]interface{}{}
+		var srvRest []map[string]interface{}
 		for _, r := range serverResult {
 			err := ""
 			if e := r.Error; e != nil {
@@ -406,7 +407,7 @@ func DeployStart(c *gin.Context) {
 		}
 		apply.UpdateStatus()
 
-		//send deploy email
+		// send deploy email
 		if err := apply.Detail(); err != nil {
 			return
 		}

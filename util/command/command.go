@@ -8,6 +8,7 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"log"
 	"os/exec"
 	"strings"
 	"syscall"
@@ -71,6 +72,8 @@ func (c *Command) Run() error {
 			err = errors.New(fmt.Sprintf("cmd is terminated, cmd [%s]", c.Cmd))
 		}
 	}
+
+	log.Printf("%s run result:%v", c.command.String(), err)
 	return err
 }
 
